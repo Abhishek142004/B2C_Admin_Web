@@ -12,6 +12,8 @@ import Login from "./components/login";
 import CustomerInsights from "./components/CustomerInsights";
 import DeliveryInsights from "./components/Delivery_Insights";
 import OutletSummary from "./components/OutletDetails_updated";
+import store from "./redux/store";
+import { Provider } from "react-redux";
 
 const App = () => {
   const navigate = useNavigate();
@@ -57,7 +59,9 @@ const App = () => {
       )}
 
       <div
-        className={`w-full ${!isLoginPage ? "lg:ml-[100px]" : ""} mt-16 lg:mt-0`}
+        className={`w-full ${
+          !isLoginPage ? "lg:ml-[100px]" : ""
+        } mt-16 lg:mt-0`}
       >
         <Routes>
           <Route path="/" element={<Navigate to="/login" />} />{" "}
@@ -67,7 +71,14 @@ const App = () => {
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/customer-insights" element={<CustomerInsights />} />
           <Route path="/outlet" element={<OutletSummary />} />
-          <Route path="/delivery-insights" element={<DeliveryInsights />} />
+          <Route
+            path="/delivery-insights"
+            element={
+              <Provider store={store}>
+                <DeliveryInsights />
+              </Provider>
+            }
+          />
           {/* Add more routes here if needed */}
         </Routes>
       </div>
